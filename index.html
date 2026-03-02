@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --neon-cyan: #00f2ff;
+        --neon-magenta: #ff00e5;
+        --glass: rgba(255, 255, 255, 0.05);
+      }
+      body {
+        background: radial-gradient(circle at center, #1a0b2e 0%, #050505 100%);
+        color: white;
+        font-family: "Inter", sans-serif;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+      }
+       .dashboard-container {
+        display: grid;
+        height: 100vh;
+        grid-template-columns: 80px 1fr;
+        grid-template-rows: 1fr 200px;
+        grid-template-areas:
+          "nav view"
+          "nav stats";
+      }
+
+      .sidebar {
+        grid-area: nav;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px;
+        border-right: 1px solid var(--glass);
+        background: #1e293b;
+        padding: 10px 30px;
+        border-radius: 50px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      }
+      .viewport {
+        grid-area: view;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid var(--glass);
+      }
+      .stats-container {
+        grid-area: stats;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .card {
+        background: var(--glass);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      }
+      .card_enginetemp {
+        background: var(--glass);
+        backdrop-filter: blur(15px);
+        border: 2px solid rgba(199, 11, 11, 0.982);
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(10deg);
+        }
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+      }
+
+      .spaceship {
+        font-size: 3rem;
+        position: absolute;
+        top: 30%;
+        left: 20%;
+        animation: float 6s ease-in-out infinite;
+        filter: drop-shadow(0 0 10px var(--neon-cyan));
+        z-index: 10;
+      }
+
+      .planet {
+        width: 150px;
+        height: 150px;
+        background: linear-gradient(45deg, #ff4e50, #f9d423);
+        border-radius: 50%;
+        position: absolute;
+        right: 10%;
+        top: 20%;
+        box-shadow:
+          inset -20px -20px 50px rgba(0, 0, 0, 0.5),
+          0 0 40px var(--neon-magenta);
+          animation: rotate-planet 5s linear infinite;
+      }
+      @keyframes rotate-planet{
+        from{ transform: rotate(0deg);}
+        to{transform: rotate(360deg);}
+
+      }
+      .nav-links {
+        list-style: none;
+        gap: 40px;
+        padding: 0;
+        margin: 0;
+      }
+      .nav-item a {
+        text-decoration: none;
+        color: #94a3b8;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .nav-item i {
+        font-size: 1.5rem;
+        transition: transform 0.3s ease;
+        color: 0.3s ease;
+      }
+      .nav-item span {
+        font-size: 0.75rem;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+      }
+      .nav-item a:hover {
+        color: #38bdf8;
+      }
+      .nav-item a:hover i {
+        transform: translateY(-5px);
+        text-shadow:
+          0 0 15px #38bdf8,
+          0 0 30px #38bdf8;
+      }
+
+      .nav-item a:hover span {
+        opacity: 1;
+        transform: translateY(2px);
+      }
+      .optmal {
+        border: 2px solid rgb(28, 185, 28);
+        background-color: rgba(11, 11, 31, 0.557);
+        color: rgb(39, 230, 39);
+        padding-left: 6px;
+        padding-right: 6px;
+        border-radius: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <nav class="sidebar">
+        <ul class="nav-links">
+          <li class="nav-item">
+            <a href="#"><i class="fas fa-home"></i><span>Home</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="#"><i class="fas fa-user"></i><span>Profile</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="#"><i class="fas fa-envelope"></i><span>Messages</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="#"><i class="fas fa-cog"></i><span>Settings</span></a>
+          </li>
+        </ul>
+      </nav>
+
+      <main class="viewport">
+        <div class="starfield"></div>
+        <div class="planet"></div>
+        <div class="spaceship">🛸</div>
+        <div class="hud-overlay">USS-GEMINI: COMMAND CENTER</div>
+        <button class="optmal">System Optimal</button>
+      </main>
+
+      <section class="stats-container">
+        <div class="card">
+          <h3>Oxygen Levels</h3>
+          <div class="level-bar"><div class="fill ox"></div></div>
+          <p>98% - Stable</p>
+        </div>
+        <div class="card_enginetemp">
+          <h3>Engine Temp</h3>
+          <div class="level-bar"><div class="fill fuel"></div></div>
+          <span style="color: red">4,200°C</span>
+          <p>CAUTION: HIGH</p>
+        </div>
+        <div class="card">
+          <h3>Fuel Remaining</h3>
+          <p class="big-text">64% - Sub-light only</p>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
